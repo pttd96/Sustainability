@@ -1,6 +1,11 @@
 package com.miniproject.sustainability.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 
 import java.time.LocalDate;
 
@@ -20,4 +25,31 @@ public class ElectricityEntity {
 
     @Column(name = "consumption_kwh", nullable = false)
     private Double consumptionKwh;
+
+    public ElectricityEntity(Long id, String cityName, LocalDate usageDate, Double consumptionKwh) {
+        this.id = id;
+        this.cityName = cityName;
+        this.usageDate = usageDate;
+        this.consumptionKwh = consumptionKwh;
+    }
+
+    public ElectricityEntity() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public LocalDate getUsageDate() {
+        return usageDate;
+    }
+
+    public Double getConsumptionKwh() {
+        return consumptionKwh;
+    }
 }

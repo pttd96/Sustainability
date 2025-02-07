@@ -1,6 +1,11 @@
 package com.miniproject.sustainability.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
 
 import java.time.LocalDate;
 
@@ -23,4 +28,36 @@ public class WasteEntity {
 
     @Column(name = "waste_type", nullable = false)
     private String wasteType;
+
+    public WasteEntity(Long id, String cityName, LocalDate collectionDate, Double wasteVolume, String wasteType) {
+        this.id = id;
+        this.cityName = cityName;
+        this.collectionDate = collectionDate;
+        this.wasteVolume = wasteVolume;
+        this.wasteType = wasteType;
+    }
+
+    public WasteEntity() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public LocalDate getCollectionDate() {
+        return collectionDate;
+    }
+
+    public Double getWasteVolume() {
+        return wasteVolume;
+    }
+
+    public String getWasteType() {
+        return wasteType;
+    }
 }

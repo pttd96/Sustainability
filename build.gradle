@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.openapi.generator' version '7.2.0'
 }
 
 group = 'com.miniproject'
@@ -18,21 +19,66 @@ repositories {
 }
 
 dependencies {
+	// spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// openapi and swagger
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.15'
+	implementation 'io.swagger.core.v3:swagger-models:2.2.15'
+
+	// others
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
+	implementation 'org.glassfish:jakarta.el:4.0.2'
+
+	// database and migration
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
-	runtimeOnly 'org.postgresql:postgresql'
-	runtimeOnly 'org.postgresql:r2dbc-postgresql'
+	implementation 'org.postgresql:postgresql'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.named("build") {
+	dependsOn("openApiGenerate")  // Ensures OpenAPI generation runs before build
+}
+
+
+openApiGenerate {
+	generatorName.set("spring")
+	inputSpec.set("$rootDir/src/main/resources/openapi/sustainability-api.yaml")
+	outputDir.set("$buildDir/generated")
+	apiPackage.set("com.miniproject.sustainability.api")
+	modelPackage.set("com.miniproject.sustainability.model")
+	configOptions.set([
+			"dateLibrary": "java8",
+			"useSpringBoot3": "true"
+	])
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs("$buildDir/generated/src/main/java") // Include generated code
+		}
+	}
+}
+
+bootJar {
+	manifest {
+		attributes "Start-Class": "com.miniproject.sustainability.Application"
+	}
 }

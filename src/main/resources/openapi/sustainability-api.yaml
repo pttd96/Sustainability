@@ -1,0 +1,125 @@
+openapi: 3.1.0
+info:
+  title: Sustainability API
+  description: APIs for water supply, electricity usage, and waste management.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+tags:
+  - name: sustainability
+    description: Sustainability REST API
+
+paths:
+  /sustainability/water-supply/{cityName}:
+    get:
+      summary: Get all water supply records by city
+      operationId: getWaterSupplyByCity
+      tags:
+        - water-supply-by-city
+      parameters:
+        - name: cityName
+          in: path
+          required: true
+          description: the city name used to get water supply
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WaterSupply"
+  /sustainability/waste/{cityName}:
+    get:
+      summary: Get all waste records by city
+      operationId: getWasteByCity
+      tags:
+        - waste-by-city
+      parameters:
+        - name: cityName
+          in: path
+          required: true
+          description: the city name used to get waste
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Waste"
+  /sustainability/electricity/{cityName}:
+    get:
+      summary: Get all electricity usages by city
+      operationId: getElectricityByCity
+      tags:
+        - electricity-by-city
+      parameters:
+        - name: cityName
+          in: path
+          required: true
+          description: the city name used to get electricity usage
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Electricity"
+
+components:
+  schemas:
+    WaterSupply:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cityName:
+          type: string
+        supplyDate:
+          type: string
+          format: date
+        waterVolume:
+          type: number
+    Waste:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cityName:
+          type: string
+        collectionDate:
+          type: string
+          format: date
+        wasteType:
+          type: string
+        wasteVolume:
+          type: number
+    Electricity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        cityName:
+          type: string
+        usageDate:
+          type: string
+          format: date
+        consumptionKwh:
+          type: number

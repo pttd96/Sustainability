@@ -25,4 +25,31 @@ public class WaterSupplyEntity {
 
     @Column(name = "water_volume", nullable = false)
     private Double waterVolume;
+
+    public WaterSupplyEntity(Long id, String cityName, LocalDate supplyDate, Double waterVolume) {
+        this.id = id;
+        this.cityName = cityName;
+        this.supplyDate = supplyDate;
+        this.waterVolume = waterVolume;
+    }
+
+    public WaterSupplyEntity() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public LocalDate getSupplyDate() {
+        return supplyDate;
+    }
+
+    public Double getWaterVolume() {
+        return waterVolume;
+    }
 }

@@ -20,10 +20,8 @@ repositories {
 
 dependencies {
 	// spring
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// openapi and swagger
@@ -36,14 +34,24 @@ dependencies {
 	implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
 	implementation 'org.hibernate.validator:hibernate-validator:8.0.1.Final'
 	implementation 'org.glassfish:jakarta.el:4.0.2'
+	implementation 'org.apache.commons:commons-csv:1.10.0'
 
 	// database and migration
+	//implementation 'io.hypersistence:hypersistence-utils-hibernate-63'
 	implementation 'org.flywaydb:flyway-core'
 	implementation 'org.flywaydb:flyway-database-postgresql'
 	implementation 'org.postgresql:postgresql'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'io.zonky.test:embedded-database-spring-test:2.3.0'
+	testImplementation 'io.zonky.test:embedded-postgres:2.0.2'
+	testImplementation 'org.testcontainers:testcontainers:1.19.3'
+	testImplementation 'org.testcontainers:junit-jupiter:1.19.3'
+	testImplementation 'org.testcontainers:postgresql:1.19.3'
+	testImplementation 'com.h2database:h2'
+
+	// (Optional) Spring Boot Starter Test
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

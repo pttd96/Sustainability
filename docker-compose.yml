@@ -3,7 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15
-    container_name: sustainability_db
+    container_name: sustainability-db
     restart: always
     environment:
       POSTGRES_DB: city_data

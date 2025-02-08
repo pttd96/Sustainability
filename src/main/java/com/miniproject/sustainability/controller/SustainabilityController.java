@@ -9,6 +9,7 @@ import com.miniproject.sustainability.service.WasteService;
 import com.miniproject.sustainability.service.WaterSupplyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ import java.util.Objects;
 
 @RestController
 public class SustainabilityController implements SustainabilityApi {
-
     private final WaterSupplyService waterSupplyService;
     private final WasteService wasteService;
     private final ElectricityService electricityService;
@@ -47,5 +47,24 @@ public class SustainabilityController implements SustainabilityApi {
     public ResponseEntity<List<Electricity>> getElectricityByCity(String cityName) {
         List<Electricity> result = electricityService.getElectricityUsage(cityName);
         return ResponseEntity.ok(Objects.requireNonNullElseGet(result, ArrayList::new));
+    }
+
+    @Override
+    public ResponseEntity<Waste> createWasteRecord(Waste waste) {
+        return SustainabilityApi.super.createWasteRecord(waste);
+    }
+
+    @Override
+    public ResponseEntity<WaterSupply> createWaterSupply(WaterSupply waterSupply) {
+        return SustainabilityApi.super.createWaterSupply(waterSupply);
+    }
+
+    @Override
+    public ResponseEntity<List<Electricity>> uploadElectricityUsage(MultipartFile file) {
+        List<Electricity> result = electricityService.createElectricityUsagesByCSV(file);
+        if (result.isEmpty()) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok(result);
     }
 }

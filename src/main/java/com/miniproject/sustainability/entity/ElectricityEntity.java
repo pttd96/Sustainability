@@ -26,8 +26,7 @@ public class ElectricityEntity {
     @Column(name = "consumption_kwh", nullable = false)
     private Double consumptionKwh;
 
-    public ElectricityEntity(Long id, String cityName, LocalDate usageDate, Double consumptionKwh) {
-        this.id = id;
+    public ElectricityEntity(String cityName, LocalDate usageDate, Double consumptionKwh) {
         this.cityName = cityName;
         this.usageDate = usageDate;
         this.consumptionKwh = consumptionKwh;

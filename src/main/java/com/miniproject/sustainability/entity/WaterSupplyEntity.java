@@ -27,7 +27,6 @@ public class WaterSupplyEntity {
     private Double waterVolume;
 
     public WaterSupplyEntity(Long id, String cityName, LocalDate supplyDate, Double waterVolume) {
-        this.id = id;
         this.cityName = cityName;
         this.supplyDate = supplyDate;
         this.waterVolume = waterVolume;

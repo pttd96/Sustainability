@@ -30,7 +30,6 @@ public class WasteEntity {
     private String wasteType;
 
     public WasteEntity(Long id, String cityName, LocalDate collectionDate, Double wasteVolume, String wasteType) {
-        this.id = id;
         this.cityName = cityName;
         this.collectionDate = collectionDate;
         this.wasteVolume = wasteVolume;

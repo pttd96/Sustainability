@@ -18,7 +18,7 @@ paths:
       summary: Get all water supply records by city
       operationId: getWaterSupplyByCity
       tags:
-        - water-supply-by-city
+        - sustainability-controller
       parameters:
         - name: cityName
           in: path
@@ -35,12 +35,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/WaterSupply"
+  /sustainability/water-supply:
+    post:
+      summary: Create water supply record
+      operationId: createWaterSupply
+      tags:
+        - sustainability-controller
+      requestBody:
+        description: Water supply payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WaterSupply"
+      responses:
+        "201":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WaterSupply"
   /sustainability/waste/{cityName}:
     get:
       summary: Get all waste records by city
       operationId: getWasteByCity
       tags:
-        - waste-by-city
+        - sustainability-controller
       parameters:
         - name: cityName
           in: path
@@ -57,12 +76,31 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Waste"
+  /sustainability/waste:
+    post:
+      summary: Create waste record
+      operationId: createWasteRecord
+      tags:
+        - sustainability-controller
+      requestBody:
+        description: Waste management payload
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Waste"
+      responses:
+        "201":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Waste"
   /sustainability/electricity/{cityName}:
     get:
       summary: Get all electricity usages by city
       operationId: getElectricityByCity
       tags:
-        - electricity-by-city
+        - sustainability-controller
       parameters:
         - name: cityName
           in: path
@@ -79,6 +117,35 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Electricity"
+  /sustainability/electricity/upload:
+    post:
+      summary: Upload CSV or Excel file to create electricity usage records
+      description: Accepts a CSV or Excel file and processes electricity usage data.
+      operationId: uploadElectricityUsage
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: CSV or Excel file containing electricity usage data
+      responses:
+        "201":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Electricity"
+        "400":
+          description: Bad request (invalid file format)
+        "500":
+          description: Internal server error
 
 components:
   schemas:

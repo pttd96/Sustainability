@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sustainability Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        select, button { padding: 8px; margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+<h2>Sustainability Data</h2>
+
+<label for="citySelect">Select City:</label>
+<select id="citySelect">
+    <option value="ho_chi_minh">Ho Chi Minh</option>
+    <option value="hanoi">Hanoi</option>
+    <option value="danang">Da Nang</option>
+</select>
+<button onclick="fetchData()">Get Data</button>
+
+<h3>Water Supply</h3>
+<table id="waterTable">
+    <thead>
+    <tr><th>Supply Date</th><th>Volume (m³)</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<h3>Electricity Usage</h3>
+<table id="electricityTable">
+    <thead>
+    <tr><th>Usage Date</th><th>Usage (kWh)</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<h3>Waste Management</h3>
+<table id="wasteTable">
+    <thead>
+    <tr><th>Collection Date</th><th>Type</th><th>Volume (kg)</th></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+    async function fetchData() {
+        const city = document.getElementById("citySelect").value;
+
+        const waterRes = await fetch(`/sustainability/water-supply/${city}`);
+        const waterData = await waterRes.json();
+        updateTable("waterTable", waterData, ["supplyDate", "waterVolume"]);
+
+        const electricityRes = await fetch(`/sustainability/electricity/${city}`);
+        const electricityData = await electricityRes.json();
+        updateTable("electricityTable", electricityData, ["usageDate", "consumptionKwh"]);
+
+        const wasteRes = await fetch(`/sustainability/waste/${city}`);
+        const wasteData = await wasteRes.json();
+        updateTable("wasteTable", wasteData, ["collectionDate", "wasteType", "wasteVolume"]);
+    }
+
+    function updateTable(tableId, data, keys) {
+        const tbody = document.getElementById(tableId).querySelector("tbody");
+        tbody.innerHTML = "";
+        data.forEach(item => {
+            const row = document.createElement("tr");
+            keys.forEach(key => {
+                const cell = document.createElement("td");
+                cell.textContent = item[key] || "N/A";
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+        });
+    }
+</script>
+</body>
+</html>

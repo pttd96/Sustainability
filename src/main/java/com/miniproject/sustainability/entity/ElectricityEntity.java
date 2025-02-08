@@ -8,14 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "electricity")
 public class ElectricityEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "city_name", nullable = false)
     private String cityName;
@@ -36,7 +36,7 @@ public class ElectricityEntity {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

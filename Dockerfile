@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copy Gradle build output (assuming you use Gradle)
-COPY build/libs/city-data-app.jar app.jar
+COPY build/libs/Sustainability-1.0.0.jar app.jar
 
 # Expose the port your Spring Boot app runs on
 EXPOSE 8080

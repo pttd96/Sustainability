@@ -26,6 +26,16 @@ public class WasteService {
         return null;
     }
 
+    public Waste createWasteRecord(Waste waste) {
+        WasteEntity wasteEntity = new WasteEntity(
+                waste.getCityName(),
+                waste.getCollectionDate(),
+                waste.getWasteVolume().doubleValue(),
+                waste.getWasteType()
+        );
+        return toContract(wasteRepository.saveAndFlush(wasteEntity));
+    }
+
     private Waste toContract(WasteEntity wasteEntity) {
         Waste waste = new Waste();
         waste.setId(wasteEntity.getId());

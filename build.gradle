@@ -64,6 +64,12 @@ tasks.named("build") {
 	dependsOn("openApiGenerate")  // Ensures OpenAPI generation runs before build
 }
 
+tasks.register("unpack", Copy) {
+	dependsOn bootJar
+	from(zipTree(tasks.bootJar.outputs.files.singleFile))
+	into("build/dependency")
+}
+
 
 openApiGenerate {
 	generatorName.set("spring")
@@ -90,3 +96,5 @@ bootJar {
 		attributes "Start-Class": "com.miniproject.sustainability.Application"
 	}
 }
+
+

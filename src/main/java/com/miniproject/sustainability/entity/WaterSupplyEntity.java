@@ -1,21 +1,19 @@
 package com.miniproject.sustainability.entity;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "water_supply")
 public class WaterSupplyEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "city_name", nullable = false)
     private String cityName;
@@ -26,7 +24,7 @@ public class WaterSupplyEntity {
     @Column(name = "water_volume", nullable = false)
     private Double waterVolume;
 
-    public WaterSupplyEntity(Long id, String cityName, LocalDate supplyDate, Double waterVolume) {
+    public WaterSupplyEntity(String cityName, LocalDate supplyDate, Double waterVolume) {
         this.cityName = cityName;
         this.supplyDate = supplyDate;
         this.waterVolume = waterVolume;
@@ -36,7 +34,7 @@ public class WaterSupplyEntity {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

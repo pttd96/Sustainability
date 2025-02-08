@@ -26,6 +26,15 @@ public class WaterSupplyService {
         return null;
     }
 
+    public WaterSupply createWaterSupply(WaterSupply waterSupply) {
+        WaterSupplyEntity waterSupplyEntity = new WaterSupplyEntity(
+                waterSupply.getCityName(),
+                waterSupply.getSupplyDate(),
+                waterSupply.getWaterVolume().doubleValue()
+        );
+        return toContract(waterSupplyRepository.saveAndFlush(waterSupplyEntity));
+    }
+
     private WaterSupply toContract(WaterSupplyEntity waterSupplyEntity) {
         WaterSupply waterSupply = new WaterSupply();
         waterSupply.setId(waterSupplyEntity.getId());

@@ -7,6 +7,7 @@ import com.miniproject.sustainability.model.WaterSupply;
 import com.miniproject.sustainability.service.ElectricityService;
 import com.miniproject.sustainability.service.WasteService;
 import com.miniproject.sustainability.service.WaterSupplyService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,12 +52,20 @@ public class SustainabilityController implements SustainabilityApi {
 
     @Override
     public ResponseEntity<Waste> createWasteRecord(Waste waste) {
-        return SustainabilityApi.super.createWasteRecord(waste);
+        Waste result = wasteService.createWasteRecord(waste);
+        if (Objects.nonNull(result)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
+        return ResponseEntity.internalServerError().build();
     }
 
     @Override
     public ResponseEntity<WaterSupply> createWaterSupply(WaterSupply waterSupply) {
-        return SustainabilityApi.super.createWaterSupply(waterSupply);
+        WaterSupply result = waterSupplyService.createWaterSupply(waterSupply);
+        if (Objects.nonNull(result)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        }
+        return ResponseEntity.internalServerError().build();
     }
 
     @Override

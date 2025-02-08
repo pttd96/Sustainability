@@ -33,7 +33,7 @@ spring:
           use_jdbc_metadata_defaults: false
 
   flyway:
-    enabled: true
+    enabled: false
     locations: classpath:db/migration
 
 springdoc:
@@ -42,3 +42,8 @@ springdoc:
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
+
+zonky:
+  test:
+    database:
+      provider: postgres

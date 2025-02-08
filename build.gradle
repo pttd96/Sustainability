@@ -18,6 +18,12 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom "io.zonky.test.postgres:embedded-postgres-binaries-bom:15.4.0"
+	}
+}
+
 dependencies {
 	// spring
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -45,7 +51,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testImplementation 'io.zonky.test:embedded-database-spring-test:2.3.0'
-	testImplementation 'io.zonky.test:embedded-postgres:2.0.2'
+	testImplementation 'io.zonky.test:embedded-postgres:2.0.3'
 	testImplementation 'org.testcontainers:testcontainers:1.19.3'
 	testImplementation 'org.testcontainers:junit-jupiter:1.19.3'
 	testImplementation 'org.testcontainers:postgresql:1.19.3'
@@ -62,6 +68,10 @@ tasks.named('test') {
 
 tasks.named("build") {
 	dependsOn("openApiGenerate")  // Ensures OpenAPI generation runs before build
+}
+
+tasks.named("compileJava") {
+	dependsOn("openApiGenerate")
 }
 
 tasks.register("unpack", Copy) {

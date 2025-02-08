@@ -25,12 +25,4 @@ public class PersistenceConfiguration {
         return new JpaTransactionManager();
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource);
-        em.setPackagesToScan("com.miniproject.sustainability.entity");
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        return em;
-    }
 }

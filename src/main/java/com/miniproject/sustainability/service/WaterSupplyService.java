@@ -12,9 +12,14 @@ import java.util.List;
 public class WaterSupplyService {
 
     private final WaterSupplyRepository waterSupplyRepository;
+    private final WaterSupplyExternalService waterSupplyExternalService;
 
-    public WaterSupplyService(WaterSupplyRepository waterSupplyRepository) {
+    public WaterSupplyService(
+            WaterSupplyRepository waterSupplyRepository,
+            WaterSupplyExternalService waterSupplyExternalService
+    ) {
         this.waterSupplyRepository = waterSupplyRepository;
+        this.waterSupplyExternalService = waterSupplyExternalService;
     }
 
     public List<WaterSupply> getWaterSupply(String cityName) {
@@ -26,11 +31,12 @@ public class WaterSupplyService {
         return null;
     }
 
-    public WaterSupply createWaterSupply(WaterSupply waterSupply) {
+    public WaterSupply syncWaterSupplyData() {
+        WaterSupply data = waterSupplyExternalService.getWaterSupplyDataFromExternal();
         WaterSupplyEntity waterSupplyEntity = new WaterSupplyEntity(
-                waterSupply.getCityName(),
-                waterSupply.getSupplyDate(),
-                waterSupply.getWaterVolume().doubleValue()
+                data.getCityName(),
+                data.getSupplyDate(),
+                data.getWaterVolume().doubleValue()
         );
         return toContract(waterSupplyRepository.saveAndFlush(waterSupplyEntity));
     }

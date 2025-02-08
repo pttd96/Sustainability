@@ -60,15 +60,6 @@ public class SustainabilityController implements SustainabilityApi {
     }
 
     @Override
-    public ResponseEntity<WaterSupply> createWaterSupply(WaterSupply waterSupply) {
-        WaterSupply result = waterSupplyService.createWaterSupply(waterSupply);
-        if (Objects.nonNull(result)) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(result);
-        }
-        return ResponseEntity.internalServerError().build();
-    }
-
-    @Override
     public ResponseEntity<List<Electricity>> uploadElectricityUsage(MultipartFile file) {
         List<Electricity> result = electricityService.createElectricityUsagesByCSV(file);
         if (result.isEmpty()) {

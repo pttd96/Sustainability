@@ -35,25 +35,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/WaterSupply"
-  /sustainability/water-supply:
-    post:
-      summary: Create water supply record
-      operationId: createWaterSupply
-      tags:
-        - sustainability-controller
-      requestBody:
-        description: Water supply payload
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/WaterSupply"
-      responses:
-        "201":
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/WaterSupply"
   /sustainability/waste/{cityName}:
     get:
       summary: Get all waste records by city

@@ -57,8 +57,6 @@ dependencies {
 	testImplementation 'org.testcontainers:postgresql:1.19.3'
 	testImplementation 'com.h2database:h2'
 
-	// (Optional) Spring Boot Starter Test
-
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

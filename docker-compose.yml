@@ -6,7 +6,7 @@ services:
     container_name: sustainability-db
     restart: always
     environment:
-      POSTGRES_DB: city_data
+      POSTGRES_DB: sustainability
       POSTGRES_USER: datpham
       POSTGRES_PASSWORD: 123456
     ports:

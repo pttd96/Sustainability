@@ -47,3 +47,8 @@ zonky:
   test:
     database:
       provider: postgres
+
+scheduler:
+  water-supply:
+    fixed-rate: 600000  # 10 minutes in milliseconds
+
